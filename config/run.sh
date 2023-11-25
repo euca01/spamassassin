@@ -6,6 +6,8 @@
 
 #Start services
 
+sa-update &
+
 exec spamd --username vmail \
       --nouser-config \
       --syslog stderr \
