@@ -6,7 +6,7 @@
 
 #Start services
 
-sa-update &
+sa-update
 
 exec spamd --username vmail \
       --nouser-config \
