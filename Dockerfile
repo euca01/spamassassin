@@ -2,7 +2,7 @@ FROM alpine:3.19
 
 ENV TZ=Europe/Paris
 
-RUN apk add --no-cache bash spamassassin gpg-agent tzdata && \
+RUN apk add --no-cache bash spamassassin gpg-agent tzdata perl-socket6 && \
        ln -s /usr/share/zoneinfo/$TZ /etc/localtime && \
        adduser -u 1000 -h /var/lib/spamassassin -D vmail vmail && \
        chown vmail:vmail /var/lib/spamassassin
