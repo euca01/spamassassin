@@ -1,16 +1,18 @@
-FROM alpine:3.19
+FROM debian:bookworm-slim
 
-ENV TZ=Europe/Paris
 
-RUN apk add --no-cache bash spamassassin gpg-agent tzdata perl-socket6 && \
-       ln -s /usr/share/zoneinfo/$TZ /etc/localtime && \
-       adduser -u 1000 -h /var/lib/spamassassin -D vmail vmail && \
-       chown vmail:vmail /var/lib/spamassassin
+ENV TZ=UTC
 
-COPY config/ /etc/spamassassin/
 
-RUN ["chmod", "+x", "/etc/spamassassin/run.sh"]
+RUN apt-get -yq update && apt-get -y upgrade && \
+    apt-get install -y \
+    ca-certificates cron spamassassin spamd && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/log/* && \
+    useradd -u 1000 -d /var/mail vmail && \
+    chown vmail /var/mail
 
-CMD ["/etc/spamassassin/run.sh"]
-
+COPY config/run.sh /run.sh
+RUN chmod +x /run.sh
+VOLUME ["/var/lib/spamassassin", "/var/log"]
 EXPOSE 783
+ENTRYPOINT ["/run.sh"]
