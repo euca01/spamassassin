@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "30 3 * * *   root   sa-update &&\
+echo "30 3 * * *   root   sa-update && sa-compile &&\
   kill -HUP \`cat /var/run/spamd.pid\`" > /etc/cron.d/sa-update
 cron
 
@@ -12,6 +12,7 @@ cron
 #Start services
 
 sa-update
+sa-compile
 
 spamd --username vmail \
       --nouser-config \
