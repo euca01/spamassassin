@@ -18,6 +18,8 @@ spamd --username vmail \
       --nouser-config \
       --syslog stderr \
       --pidfile /var/run/spamd.pid \
-      --helper-home-dir /var/lib/spamassassin \
+      --helper-home-dir=/var/lib/spamassassin \
+      --virtual-config-dir=/var/lib/spamassassin/%d/%l/.spamassassin \
       --ip-address \
+      --create-prefs \
       --allowed-ips 0.0.0.0/0
