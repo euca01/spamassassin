@@ -23,4 +23,4 @@ spamd --username vmail \
       --virtual-config-dir=/var/lib/spamassassin/%d/%l/.spamassassin \
       --ip-address \
       --create-prefs \
-      --allowed-ips 0.0.0.0/0
+      --allowed-ips 172.100.0.10,172.100.0.11
